@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
 }
@@ -81,18 +85,21 @@ body {
 }
 
 .products {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .product-card {
     background: #222;
     padding: 15px;
     border-radius: 10px;
-    width: 200px;
+    width: 100%;
+    max-width: 100%;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .product-card img {
@@ -143,8 +150,10 @@ footer {
     align-items: center;
     justify-content: space-between;
     background: black;
-    padding: 15px 30px;
+    padding: 15px 20px;
     position: relative;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 /* левая часть */
@@ -576,6 +585,47 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+    #home {
+        background-attachment: scroll;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .nav-left {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .logo {
+        position: static;
+        transform: none;
+        margin: 5px 0;
+    }
+
+    .nav-right {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body {
+        background:
+            linear-gradient(135deg, #0f0f0f, #1a1a1a, #000);
+
+        background-attachment: scroll;
+    }
+    
     #home {
         background-attachment: scroll;
     }
