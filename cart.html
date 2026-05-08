@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body>
+
+<h1>Корзина</h1>
+<div id="cart-items"></div>
+<h2 id="total"></h2>
+
+<script src="script.js"></script>
+<script>
+    const container = document.getElementById("cart-items");
+    let total = 0;
+
+    cart.forEach(item => {
+        const div = document.createElement("div");
+        div.innerText = item.name + " - " + item.price + " CHF";
+        container.appendChild(div);
+        total += item.price;
+    });
+
+    document.getElementById("total").innerText = "Итого: " + total + " CHF";
+</script>
+
+</body>
+</html>

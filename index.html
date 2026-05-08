@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Streetwear Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header class="header">
+
+    <!-- ЛЕВО -->
+    <nav class="nav-left">
+        <a href="#" onclick="showPage('home')">Главная</a>
+        <a href="#" onclick="showPage('catalog')">Каталог</a>
+        <a href="#" onclick="showPage('about')">О нас</a>
+    </nav>
+
+    <!-- ЦЕНТР -->
+    <div class="logo">STREETWEAR</div>
+
+    <!-- ПРАВО -->
+    <div class="nav-right">
+        <div class="cart-icon" onclick="showPage('cart')">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </div>
+
+    </header>
+
+<main class="content">
+
+<!-- Главная -->
+<section id="home" class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>STREETWEAR 2026</h1>
+            <p>Y2K • MINIMAL • LUXURY STREET CULTURE</p>
+        
+
+        <div class="hero-buttons">
+            <button class="hero-btn" onclick="showPage('catalog')">
+                Shop Collection
+            </button>
+
+            <button class="hero-btn secondary" onclick="showPage('about')">
+                About Brand
+            </button>
+        </div>
+        </div>
+    </div>
+    </section>
+    <section class="brand-block">
+        <div class="brand-glass">
+        <h2>Мы не следуем трендам</h2>
+        <p>
+        Мы формируем уличную культуру через эстетику минималистичной роскоши и энергию Y2K
+        </p>
+    </div>
+</section>
+
+</section>
+
+<!-- Каталог -->
+    <section id="catalog" class="page" style="display:none;">
+
+        <h2>Каталог товаров</h2>
+
+        <input type="text" id="search" placeholder="Поиск товаров..." oninput="searchProducts()">
+        
+        <div class="filter">
+            <button onclick="filterCategory('all')">Все</button>
+            
+            <button onclick="filterCategory('zip')">Зипки</button>
+            
+            <button onclick="filterCategory('tshirt')">Футболки</button>
+            
+            <button onclick="filterCategory('shirt')">Рубашки</button>
+            
+            <button onclick="filterCategory('jeans')">Джинсы</button>
+            
+            <button onclick="filterCategory('shorts')">Шорты</button>
+            
+        </div>
+        
+        <div class="products">
+
+            <div class="product-card" data-category="zip"
+                onclick="openProduct(
+                    'Худи Black',
+                    35, 'images/hudi.jpg', 'images/hudi2.jpeg')">
+                
+                <img src="images/hudi.jpg">
+                <h3>Худи Black</h3>
+                <p class="price" data-price="35">35 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Худи Black', 35)"> В корзину </button>
+            </div>
+
+            <div class="product-card" data-category="tshirt"
+                 onclick="openProduct(
+                    'Футболка White',
+                    50, 'images/t-shirt1.jpg', 'images/t-shirt2.jpg')">
+                
+                <img src="images/t-shirt1.jpg">
+                <h3>Футболка White</h3>
+                <p class="price" data-price="50">50 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Футболка White', 50)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="zip"
+
+            onclick="openProduct(
+                    'Зипка y2k(Мужская)',
+                    46, 'images/zip.webp')">
+
+                <img src="images/zip.webp">
+                <h3>Зипка y2k(Мужская)</h3>
+                <p class="price" data-price="46">46 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Зипка y2k(Мужская)', 46)">В корзину</button>
+            </div>
+
+             <div class="product-card" data-category="zip"
+
+             onclick="openProduct(
+                    'Зипка y2k(принты кресты)',
+                    32, 'images/zip2.webp')">
+
+                <img src="images/zip2.webp">
+                <h3>Зипка y2k(принты кресты)</h3>
+                <p class="price" data-price="32">32 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Зипка Y2K(принты кресты)', 32)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="zip"
+
+                onclick="openProduct(
+                    'Зип-Худи y2k в стиле yori sport',
+                    67, 'images/zip3.webp')">
+
+                <img src="images/zip3.webp">
+                <h3>Зип-Худи y2k в стиле yori sport</h3>
+                <p class="price" data-price="67">67 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Зип-Худи y2k в стиле yori sport', 67)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="zip"
+            onclick="openProduct(
+                    'Зип худи yori sport y2k cozy balenciaga type',
+                    59, 'images/zip5.jpg', 'images/zip4.jpg')">
+                
+                <img src="images/zip5.jpg">
+                <h3>Зип худи yori sport y2k cozy balenciaga type</h3>
+                <p class="price" data-price="59">59 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Зип худи yori sport y2k cozy balenciaga type', 59)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shirt"
+            onclick="openProduct(
+                    'BiggOrange хлопковая рубашка-поло',
+                    59, 'images/shirt.jpg', 'images/shirt2.jpg')">
+                
+                <img src="images/shirt.jpg">
+                <h3>BiggOrange хлопковая рубашка-поло</h3>
+                <p class="price" data-price="48">48 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('BiggOrange хлопковая рубашка-поло', 48)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shirt"
+            onclick="openProduct(
+                    'Рубашка с короткими рукавами',
+                    20, 'images/shirt4.jpg', 'images/shirt3.jpg')">
+                
+                <img src="images/shirt4.jpg">
+                <h3>Рубашка с короткими рукавами</h3>
+                <p class="price" data-price="20">20 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Рубашка с короткими рукавами', 20)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shirt"
+            onclick="openProduct(
+                    'Рубашка Литература средневековья',
+                    50, 'images/shirt5.webp', 'images/shirt6.webp')">
+                
+                <img src="images/shirt5.webp">
+                <h3>Рубашка Литература средневековья</h3>
+                <p class="price" data-price="50">50 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Рубашка Литература средневековья', 50)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shirt"
+            onclick="openProduct(
+                    'Рубашка Colins',
+                    24, 'images/shirt7.webp', 'images/shirt8.webp')">
+                
+                <img src="images/shirt7.webp">
+                <h3>Рубашка Colins</h3>
+                <p class="price" data-price="24">24 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Рубашка Colins', 24)">В корзину</button>
+            </div>
+
+             <div class="product-card" data-category="tshirt"
+                 onclick="openProduct(
+                    'Футболка Chicken',
+                    25, 'images/t-shirt3.jpg', 'images/t-shirt4.jpg')">
+                
+                <img src="images/t-shirt3.jpg">
+                <h3>Футболка Chicken</h3>
+                <p class="price" data-price="25">25 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Футболка Chicken', 25)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="tshirt"
+                 onclick="openProduct(
+                    'Футболка Alpha',
+                    22, 'images/t-shirt5.jpg', 'images/t-shirt6.jpg')">
+                
+                <img src="images/t-shirt5.jpg">
+                <h3>Футболка Alpha</h3>
+                <p class="price" data-price="22">22 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Футболка Alpha', 22)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="tshirt"
+                 onclick="openProduct(
+                    'Футболка OpOs',
+                    22, 'images/t-shirt7.jpg', 'images/t-shirt8.jpg')">
+                
+                <img src="images/t-shirt7.jpg">
+                <h3>Футболка OpOs</h3>
+                <p class="price" data-price="22">22 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Футболка OpOs', 22)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="jeans"
+                 onclick="openProduct(
+                    'Джинсы Harajuku',
+                    40, 'images/jeans.jpg', 'images/jeans2.jpg')">
+                
+                <img src="images/jeans.jpg">
+                <h3>Джинсы Harajuku</h3>
+                <p class="price" data-price="40">40 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Джинсы Harajuku', 40)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="jeans"
+                 onclick="openProduct(
+                    'Джинсы y2k',
+                    43, 'images/jeans3.jpg', 'images/jeans4.jpg')">
+                
+                <img src="images/jeans3.jpg">
+                <h3>Джинсы y2k</h3>
+                <p class="price" data-price="43">43 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Джинсы y2k', 43)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="jeans"
+                 onclick="openProduct(
+                    'Джинсы-багги в стиле ретро 2025',
+                    52, 'images/jeans5.jpg', 'images/jeans6.jpg')">
+                
+                <img src="images/jeans5.jpg">
+                <h3>Джинсы-багги в стиле ретро 2025</h3>
+                <p class="price" data-price="52">52 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Джинсы-багги в стиле ретро 2025', 52)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shorts"
+                 onclick="openProduct(
+                    'Джинсовые шорты в стиле готики',
+                    31, 'images/shorts.jpg', 'images/shorts2.jpg')">
+                
+                <img src="images/shorts.jpg">
+                <h3>Джинсовые шорты в стиле готики</h3>
+                <p class="price" data-price="31">31 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Джинсовые шорты в стиле готики', 31)">В корзину</button>
+            </div>
+
+            <div class="product-card" data-category="shorts"
+                 onclick="openProduct(
+                    'Шорты Protect',
+                    28, 'images/shorts3.jpg', 'images/shorts4.jpg')">
+                
+                <img src="images/shorts3.jpg">
+                <h3>Шорты Protect</h3>
+                <p class="price" data-price="28">28 USD</p>
+                <button class="btn-primary" onclick="event.stopPropagation(); addToCart('Шорты Protect', 28)">В корзину</button>
+            </div>
+
+        </div>
+
+    </section>
+
+<!-- Корзина -->
+    <section id="cart" class="page" style="display:none;">
+
+        <h2>Корзина</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total-row">
+            <h3 id="total"></h3>
+            <button class="btn-secondary" onclick="clearCart()">Очистить корзину</button>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="openCheckout()">Оформить заказ</button>
+        </div>
+
+    </section>
+
+<!-- Оформление после корз -->    
+    <section id="checkout" class="page" style="display:none;">
+
+    <h2>Оформление заказа</h2>
+
+    <div class="checkout-wrapper">
+
+        <div class="checkout-left">
+
+            <label for="email">E-mail</label>
+            <input id="email" type="email" required placeholder="agent007@gmail.com">
+            <label for="surname">Фамилия</label>
+            <input id="surname" type="text" required placeholder="Иванов">
+            <label for="name">Имя</label>
+            <input id="name" type="text" required placeholder="Иван">
+            <label for="otch">Отчество</label>
+            <input id="otch" type="text" placeholder="Иванович">
+            <label for="date">Дата рождения</label>
+            <input id="date" type="date" required placeholder="Дата рождения">
+
+        </div>
+
+        <div class="checkout-right">
+
+            <label for="phone">Номер телефон</label>
+            <input id="phone" type="tel" required placeholder="+7 (928) 356-78-87">
+            <label for="city">Город</label>
+            <input id="city" type="text" required placeholder="Астрахань">
+            <label for="com">Комментарий</label>
+            <textarea maxlength="300"></textarea>
+            <div class="counter">0/300</div>
+
+        </div>
+
+    </div>
+
+    <h3 id="checkout-total"></h3>
+
+    <div class="button-group">
+        <button class="btn-secondary" onclick="backToCart()">Назад</button>
+        <button class="btn-primary" onclick="confirmOrder()">Купить</button>
+    </div>
+    </section>
+
+<!-- О компании -->
+    <section id="about" class="page" style="display:none;">
+
+    <h2>О компании</h2>
+    
+    <div class="about-container">
+
+        <!-- ТЕКСТ -->
+        <div class="about-text">
+            <p>
+                Мы — streetwear platform, специализирующаяся на оригинальной брендовой одежде и культовых fashion-позициях. Каждая вещь проходит строгий отбор на подлинность, актуальность и культурную значимость.
+                Мы не следуем трендам — мы формируем их выбором того, что уже стало частью глобальной уличной и fashion-культуры.
+            </p>
+
+            <p>
+               Основаны в 2020 году. Мы работаем на пересечении streetwear и high fashion, объединяя эстетику, качество и современный ритм города.
+            </p>
+        </div>
+
+        <!-- ФОТО -->
+        <div class="about-gallery">
+            <img src="images/y2k.jpg">
+            <img src="images/about.jpg">
+            <img src="images/a.jpg">
+        </div>
+
+        <!-- КАРТА -->
+        <div class="about-map">
+            <iframe 
+                src="https://yandex.ru/maps/-/CPWA5R3B"
+                width="100%" 
+                height="250" 
+                style="border:0;" 
+                allowfullscreen="">
+            </iframe>
+        </div>
+    
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Streetwear Shop</p>
+
+    <div class="currency-switcher">
+        <select id="currency">
+            <option value="USD">USD</option>
+            <option value="RUB" selected>RUB</option>
+            <option value="EUR">EUR</option>
+        </select>
+    </div>
+</footer>
+
+<div id="productModal" class="product-modal" style="display:none;">
+    
+    <div class="product-modal-content">
+
+        <div class="product-modal-body">
+
+            <!-- ЛЕВО: ГАЛЕРЕЯ -->
+            <div class="gallery">
+                <button class="btn-secondary back-btn" onclick="closeProduct()">← Назад</button>
+                <button class="arrow left" onclick="prevImage()">‹</button>
+                <img id="mainImage">
+                <button class="arrow right" onclick="nextImage()">›</button>
+            </div>
+
+            <!-- ПРАВО: ИНФО -->
+            <div class="product-info">
+                <h2 id="modal-title"></h2>
+                <h3 id="modal-price"></h3>
+
+                <button class="btn-primary" id="modal-add">
+                    В корзину
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</div>
+
+</body>
+</html>
