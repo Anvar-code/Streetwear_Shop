@@ -1,7 +1,7 @@
 // валюты
 const rates = {
     USD: 1,
-    RUB: 90,
+    RUB: 92,
     EUR: 0.9
 };
 
@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartCount();
     updatePrices();
     renderCart();
-    updateCheckoutButton(); 
+    updateButtons();
+    updateCheckoutButton();
 });
 
 // переключение страниц
@@ -35,17 +36,36 @@ function showPage(page) {
 
 // корзина, добав
 function addToCart(name, price) {
-    cart.push({ name, price });
+
+    const existing = cart.find(item => item.name === name);
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            name,
+            price,
+            quantity: 1
+        });
+    }
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
     updateCartCount();
-    renderCart(); 
+    renderCart();
+    updateButtons();
     updateCheckoutButton();
 }
 
 function updateCartCount() {
-    document.getElementById("cart-count").textContent = cart.length;
+
+    let total = 0;
+
+    cart.forEach(item => {
+        total += item.quantity;
+    });
+
+    document.getElementById("cart-count").textContent = total;
 }
 
 // обновление цен в кат
@@ -61,6 +81,7 @@ function updatePrices() {
 
 // отображение корзины, удаление
 function renderCart() {
+
     const container = document.getElementById("cart-items");
     const totalEl = document.getElementById("total");
 
@@ -68,36 +89,57 @@ function renderCart() {
 
     let total = 0;
 
-    cart.forEach((item, index) => {
+    cart.forEach(item => {
+
         const converted = item.price * rates[currentCurrency];
+
+        const itemTotal = converted * item.quantity;
 
         const div = document.createElement("div");
 
-        div.innerHTML = 
-            ` ${item.name} - ${converted.toFixed(0)} ${currentCurrency}
-            <button class="btn-secondary" onclick="removeFromCart(${index})"> Удалить </button>`
-            ;
+        div.className = "cart-item";
+
+        div.innerHTML = `
+            <div>
+                ${item.name}
+            </div>
+
+            <div class="quantity-controls">
+                <button onclick="decreaseQuantity('${item.name}')">−</button>
+
+                <span>${item.quantity}</span>
+
+                <button onclick="increaseQuantity('${item.name}')">+</button>
+            </div>
+
+            <div>
+                ${itemTotal.toFixed(0)} ${currentCurrency}
+            </div>
+        `;
 
         container.appendChild(div);
-        total += converted;
+
+        total += itemTotal;
     });
 
-    totalEl.textContent = "Итого:" + total.toFixed(0) + " " + currentCurrency;
+    totalEl.textContent =
+        "Итого: " + total.toFixed(0) + " " + currentCurrency;
 }
 
 function removeFromCart(index) {
     cart.splice(index, 1);
 
     localStorage.setItem("cart", JSON.stringify(cart));
-
     updateCartCount();
     renderCart();
     updateCheckoutButton();
+    updateButtons();
 }
 
 function updateUI() {
     updatePrices();
     renderCart();
+    updateButtons();
 }
 
 // переключение валют
@@ -113,12 +155,18 @@ document.getElementById("currency").addEventListener("change", (e) => {
 
 // открыть оформле
 function openCheckout() {
+    if (cart.length === 0) {
+        alert("Корзина пуста");
+        showPage("cart"); // возвращаем назад
+        return;
+    }
+
     showPage("checkout");
 
     let total = 0;
 
     cart.forEach(item => {
-        total += item.price * rates[currentCurrency];
+        total += item.price * item.quantity * rates[currentCurrency];
     });
 
     document.getElementById("checkout-total").textContent =
@@ -199,6 +247,8 @@ function confirmOrder() {
 });
 
     updateCartCount();
+    renderCart();
+    updateButtons();
     showPage("home");
 }
 
@@ -255,21 +305,39 @@ function openProduct(name, price, img1, img2) {
     currentIndex = 0;
 
     updateImage();
+    updateModalPrice(price);
 
-    function updateModalPrice() {
-        const converted = price * rates[currentCurrency];
-        document.getElementById("modal-price").textContent =
-            converted.toFixed(0) + " " + currentCurrency;
-    }
+    const modalBtn = document.getElementById("modal-add");
+    const item = cart.find(i => i.name === name);
 
-    updateModalPrice();
+    if (item) {
+        modalBtn.innerHTML = `
+        <div class="quantity-controls">
+            <button onclick="event.stopPropagation(); decreaseQuantity('${name}')">−</button>
 
-    document.getElementById("modal-add").onclick = () => {
-        addToCart(name, price);
+            <span>${item.quantity}</span>
+
+            <button onclick="event.stopPropagation(); increaseQuantity('${name}')">+</button>
+        </div>`;
+    
+    } else {
+        
+        modalBtn.innerHTML = `В корзину`;
+        
+        modalBtn.onclick = () => {
+            addToCart(name, price);
+
+        openProduct(name, price, img1, img2);
     };
-
+}
     // сохраняем функцию глобально, чтобы можно было обновлять при смене валюты
     window.updateModalPrice = updateModalPrice;
+}
+
+function updateModalPrice(price) {
+    const converted = price * rates[currentCurrency];
+    document.getElementById("modal-price").textContent =
+        converted.toFixed(0) + " " + currentCurrency;
 }
 
 function updateImage() {
@@ -313,6 +381,7 @@ function clearCart() {
     updateCartCount();
     renderCart();
     updateCheckoutButton();
+    updateButtons();
 }
 
 function updateCheckoutButton() {
@@ -320,13 +389,134 @@ function updateCheckoutButton() {
 
     if (!btn) return;
 
-    if (cart.length === 0) {
-        btn.disabled = true;
-        btn.style.opacity = "0.5";
-        btn.style.cursor = "not-allowed";
+    const isEmpty = cart.length === 0;
+
+    btn.disabled = isEmpty;
+
+    btn.style.opacity = isEmpty ? "0.5" : "1";
+    btn.style.cursor = isEmpty ? "not-allowed" : "pointer";
+
+    // отключаем клик
+    if (isEmpty) {
+        btn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            alert("Корзина пуста");
+        };
     } else {
-        btn.disabled = false;
-        btn.style.opacity = "1";
-        btn.style.cursor = "pointer";
+        btn.onclick = () => openCheckout();
     }
+}
+
+function increaseQuantity(name) {
+    const item = cart.find(i => i.name === name);
+
+    if (item) {
+        item.quantity++;
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+    renderCart();
+    updateButtons();
+
+    if (document.getElementById("productModal").style.display === "flex") {
+        const title = document.getElementById("modal-title").textContent;
+
+        const current = cart.find(i => i.name === title);
+
+        const modalBtn = document.getElementById("modal-add");
+
+        if (current) {
+            modalBtn.innerHTML = `
+                <div class="quantity-controls">
+                    <button onclick="event.stopPropagation(); decreaseQuantity('${title}')">−</button>
+                    <span>${current.quantity}</span>
+                    <button onclick="event.stopPropagation(); increaseQuantity('${title}')">+</button>
+                </div>
+            `;
+        } else {
+            modalBtn.innerHTML = `В корзину`;
+        }
+    }
+}
+
+function decreaseQuantity(name) {
+    const item = cart.find(i => i.name === name);
+
+    if (!item) return;
+
+    item.quantity--;
+
+    if (item.quantity <= 0) {
+        cart = cart.filter(i => i.name !== name);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    updateCartCount();
+    renderCart();
+    updateButtons();
+    updateCheckoutButton();
+
+        if (document.getElementById("productModal").style.display === "flex") {
+        const title = document.getElementById("modal-title").textContent;
+
+        const current = cart.find(i => i.name === title);
+
+        const modalBtn = document.getElementById("modal-add");
+
+        if (current) {
+            modalBtn.innerHTML = `
+                <div class="quantity-controls">
+                    <button onclick="event.stopPropagation(); decreaseQuantity('${title}')">−</button>
+                    <span>${current.quantity}</span>
+                    <button onclick="event.stopPropagation(); increaseQuantity('${title}')">+</button>
+                </div>
+            `;
+        } else {
+            modalBtn.innerHTML = `В корзину`;
+        }
+    }
+}
+
+function updateButtons() {
+
+    document.querySelectorAll(".product-card").forEach(card => {
+
+        const title = card.querySelector("h3").textContent;
+
+        const btn = card.querySelector("button");
+
+        const item = cart.find(i => i.name === title);
+
+        if (item) {
+
+            btn.classList.remove("btn-primary");
+
+            btn.innerHTML = `
+                <div class="quantity-controls">
+                    <button onclick="event.stopPropagation(); decreaseQuantity('${title}')">−</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="event.stopPropagation(); increaseQuantity('${title}')">+</button>
+                </div>
+            `;
+
+        } else {
+
+            btn.classList.add("btn-primary");
+
+            const price = Number(
+                card.querySelector(".price").getAttribute("data-price")
+            );
+
+            btn.innerHTML = `В корзину`;
+
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                addToCart(title, price);
+            };
+        }
+    });
 }
