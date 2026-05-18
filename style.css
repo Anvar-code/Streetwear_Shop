@@ -843,6 +843,46 @@ button:hover {
     margin-bottom: 25px;
 }
 
+/* Checkout policy text */
+
+.checkout-policy {
+    margin-top: 18px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    color: rgba(255,255,255,0.7);
+
+    max-width: 650px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-policy a {
+    color: #ff3c3c;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.checkout-policy a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+
+    .checkout-policy {
+        font-size: 13px;
+
+        padding: 0 10px;
+    }
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
