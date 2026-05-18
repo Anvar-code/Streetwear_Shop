@@ -193,14 +193,12 @@ function confirmOrder() {
     const email = document.getElementById("email");
     const surname = document.getElementById("surname");
     const name = document.getElementById("name");
-    const date = document.getElementById("date");
     const phone = document.getElementById("phone");
     const city = document.getElementById("city");
 
     const emailVal = email.value.trim();
     const surnameVal = surname.value.trim();
     const nameVal = name.value.trim();
-    const dateVal = date.value.trim();
     const phoneVal = phone.value.trim();
     const cityVal = city.value.trim();
 
@@ -211,7 +209,7 @@ function confirmOrder() {
     let valid = true;
 
     // очистка классов
-    [email, surname, name, date, phone, city].forEach(input => {
+    [email, surname, name, phone, city].forEach(input => {
         input.classList.remove("input-error", "input-success");
     });
 
@@ -227,7 +225,6 @@ function confirmOrder() {
     check(email, emailPattern.test(emailVal));
     check(surname, surnameVal.length > 1);
     check(name, nameVal.length > 1);
-    check(date, dateVal !== "");
     check(phone, phonePattern.test(phoneVal));
     check(city, cityPattern.test(cityVal));
 
@@ -519,4 +516,23 @@ function updateButtons() {
             };
         }
     });
+}
+
+// открыть checkout после возврата
+window.addEventListener("DOMContentLoaded", () => {
+
+    const openCheckout =
+        localStorage.getItem("openCheckout");
+
+    if (openCheckout === "true") {
+
+        showPage("checkout");
+
+        localStorage.removeItem("openCheckout");
+    }
+});
+
+function goBackCheckout() {
+    localStorage.setItem("openCheckout", "true");
+    window.location.href = "index.html";
 }
