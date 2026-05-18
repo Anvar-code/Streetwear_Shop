@@ -740,3 +740,128 @@ button:hover {
 .contact-item a:hover {
     text-decoration: underline;
 }
+
+.checkout-policy {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+}
+
+.checkout-policy a {
+    color: #ff3c3c;
+    text-decoration: none;
+}
+
+.checkout-policy a:hover {
+    text-decoration: underline;
+}
+
+/*Privacy/Terms pages */
+
+.policy-page {
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.policy-container {
+    max-width: 950px;
+    margin: 0 auto;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 18px;
+
+    padding: 45px;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.policy-container h1 {
+    font-size: 38px;
+    margin-bottom: 30px;
+
+    text-align: center;
+
+    letter-spacing: 2px;
+
+    color: #ff3c3c;
+}
+
+.policy-container h2 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+
+    font-size: 24px;
+
+    color: #ff3c3c;
+}
+
+.policy-container p {
+    color: rgba(255,255,255,0.82);
+
+    line-height: 1.9;
+
+    margin-bottom: 18px;
+
+    font-size: 16px;
+}
+
+.policy-container ul {
+    padding-left: 22px;
+
+    margin-bottom: 20px;
+}
+
+.policy-container li {
+    color: rgba(255,255,255,0.82);
+
+    margin-bottom: 10px;
+
+    line-height: 1.7;
+}
+
+.policy-container a {
+    color: #ff3c3c;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.policy-container a:hover {
+    text-decoration: underline;
+}
+
+.back-policy {
+    margin-bottom: 25px;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .policy-container {
+        padding: 25px;
+    }
+
+    .policy-container h1 {
+        font-size: 28px;
+    }
+
+    .policy-container h2 {
+        font-size: 20px;
+    }
+
+    .policy-container p,
+    .policy-container li {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}
